@@ -1,5 +1,5 @@
-const api = "52ee31fb251395c29b8d163d39c07094";
-const url =`https://gnews.io/api/v4/top-headlines?lang=en&country=in&topic=technology&max=30&token=${api}`;
+const api = "38743344780855c7a36db11ef5264ed7";
+const url =`https://gnews.io/api/v4/top-headlines?lang=en&country=in&topic=technology&max=10&token=${api}`;
 
 document.getElementById("loadingSpinner").style.display = "block";
 fetch(url)
