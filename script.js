@@ -11,7 +11,7 @@ fetch(url)
         let description = article.description;
         let img = article.image;
         let link = article.url;
-        let date = article.publishedAt;
+        let date = article.publishedAt.split("T")[0];
         createNews(title,description,img,link,date);
         document.getElementById("loadingSpinner").style.display = "none";
      });
