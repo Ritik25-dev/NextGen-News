@@ -6,10 +6,12 @@ spinner.style.display = "block";
 let Data = JSON.parse(localStorage.getItem("data"))|| null
 
 function storeData(){
-  const lastFetch = localStorage.getItem("lastFetch");
+  const lastFetch = parseInt(localStorage.getItem("lastFetch"));
   const now = Date.now(); 
 
   if (!lastFetch || now - lastFetch > 3600000) {
+    localStorage.removeItem("data");
+    localStorage.removeItem("lastFetch");
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -32,8 +34,9 @@ function getData(){
       let description = article.description;
       let img = article.image;
       let link = article.url;
-      let date = article.publishedAt.split("T")[0];
-      createNews(title,description,img,link,date);
+      let date = new Date(article.publishedAt);
+      let localDate = date.toLocaleDateString('en-GB'); 
+      createNews(title,description,img,link,localDate);
       
    });
    spinner.style.display = "none";
@@ -55,13 +58,11 @@ function createNews(title,description,img,link,date){
 }
 
 window.addEventListener("load", () => {
-  if (!Data || !Data.articles || Data.articles.length === 0) {
-    storeData();
-  } else {
-    getData();
-  }
+  storeData()
 });
 
+
 setInterval(storeData,3600000);
+
 
 
